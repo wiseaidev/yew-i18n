@@ -1,28 +1,44 @@
 [package]
-name = "yew-i18n"
+name = "i18nrs"
 version = "0.1.2"
-description = "🌐 Internationalization (i18n) component for the Yew framework."
-license = "MIT"
-repository = "https://github.com/next-rs/yew-i18n"
-homepage = "https://github.com/next-rs/yew-i18n"
-documentation = "https://docs.rs/yew-i18n/"
-authors = ["Mahmoud Harmouch <oss@wiseai.dev>"]
 edition = "2021"
-exclude = ["/examples"]
-keywords = ["yew", "rust", "i18n", "yew-i18n"]
-categories = ["web-programming", "internationalization", "accessibility"]
+rust-version = "1.79"
+description = "🌐 A highly customizable Internationalization (i18n) component for WASM frameworks like Yew, Dioxus, and Leptos."
+license = "MIT"
+keywords = ["i18n", "yew", "rust", "dioxus", "leptos"]
+categories = ["web-programming", "science"]
+repository = "https://github.com/opensass/i18n-rs"
+documentation = "https://docs.rs/i18nrs/"
+authors = ["Mahmoud Harmouch <oss@wiseai.dev>"]
+exclude = ["assets", "examples"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-yew = "0.21.0"
-serde_json = "1.0.134"
+serde_json = "1.0.113"
+gloo-storage = "0.3.0"
+yew = { version = "0.21.0", default-features = false, optional = true }
+
+[features]
+yew = ["dep:yew"]
 
 [profile.release]
-codegen-units = 1
 opt-level = "z"
+debug = false
 lto = "thin"
+codegen-units = 1
+panic = "abort"
 strip = "symbols"
+incremental = false
 
 [badges]
 maintenance = { status = "actively-developed" }
+
+[package.metadata.docs.rs]
+all-features = true
+rustdoc-args = ["--cfg", "docsrs"]
+
+[dev-dependencies]
+log = "0.4.22"
+bump2version = "0.1.4"
+web-sys = "0.3.76"
